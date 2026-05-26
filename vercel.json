@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/cron/solicitacoes", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/envia-mensagens", "schedule": "0 * * * *" },
+    { "path": "/api/cron/escrituracao", "schedule": "30 * * * *" },
+    { "path": "/api/cron/watch-folder", "schedule": "15 * * * *" }
+  ]
+}
