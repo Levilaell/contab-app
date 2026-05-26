@@ -1,22 +1,26 @@
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { formatCNPJ } from '@/lib/format';
-import type { ExternalClient } from '@/lib/types';
-import { createCliente, updateCliente, deleteCliente } from '@/app/(app)/clientes/actions';
+} from "@/components/ui/card";
+import { formatCNPJ } from "@/lib/format";
+import type { ExternalClient } from "@/lib/types";
+import {
+  createCliente,
+  updateCliente,
+  deleteCliente,
+} from "@/app/(app)/clientes/actions";
 
 type Props = {
   cliente?: ExternalClient;
@@ -33,8 +37,8 @@ export function ClienteForm({ cliente }: Props) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    formData.set('solicitar_documentos', solicitarDocs ? 'true' : 'false');
-    formData.set('ativo', ativo ? 'true' : 'false');
+    formData.set("solicitar_documentos", solicitarDocs ? "true" : "false");
+    formData.set("ativo", ativo ? "true" : "false");
 
     startTransition(async () => {
       const result = cliente
@@ -45,22 +49,22 @@ export function ClienteForm({ cliente }: Props) {
         toast.error(result.error);
         return;
       }
-      toast.success(cliente ? 'Cliente atualizado' : 'Cliente criado');
+      toast.success(cliente ? "Cliente atualizado" : "Cliente criado");
       if (cliente) router.refresh();
     });
   }
 
   async function handleDelete() {
     if (!cliente) return;
-    if (!confirm('Apagar este cliente?')) return;
+    if (!confirm("Apagar este cliente?")) return;
     startTransition(async () => {
       const result = await deleteCliente(cliente.id);
       if (!result.ok) {
         toast.error(result.error);
         return;
       }
-      toast.success('Cliente apagado');
-      router.replace('/clientes');
+      toast.success("Cliente apagado");
+      router.replace("/clientes");
     });
   }
 
@@ -86,7 +90,7 @@ export function ClienteForm({ cliente }: Props) {
               id="cnpj"
               name="cnpj"
               required
-              defaultValue={cliente ? formatCNPJ(cliente.cnpj) : ''}
+              defaultValue={cliente ? formatCNPJ(cliente.cnpj) : ""}
               placeholder="00.000.000/0000-00"
             />
           </div>
@@ -95,7 +99,7 @@ export function ClienteForm({ cliente }: Props) {
             <Input
               id="nome_fantasia"
               name="nome_fantasia"
-              defaultValue={cliente?.nome_fantasia ?? ''}
+              defaultValue={cliente?.nome_fantasia ?? ""}
             />
           </div>
           <div className="space-y-2">
@@ -103,7 +107,7 @@ export function ClienteForm({ cliente }: Props) {
             <Input
               id="dominio_codigo_empresa"
               name="dominio_codigo_empresa"
-              defaultValue={cliente?.dominio_codigo_empresa ?? ''}
+              defaultValue={cliente?.dominio_codigo_empresa ?? ""}
               placeholder="ex: 1234"
             />
           </div>
@@ -124,7 +128,9 @@ export function ClienteForm({ cliente }: Props) {
       <Card>
         <CardHeader>
           <CardTitle>DocFlow</CardTitle>
-          <CardDescription>Solicitação automática de documentos</CardDescription>
+          <CardDescription>
+            Solicitação automática de documentos
+          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2">
           <div className="flex items-center justify-between rounded-md border px-4 py-2 md:col-span-2">
@@ -163,7 +169,9 @@ export function ClienteForm({ cliente }: Props) {
             <select
               id="modo_envio_guias"
               name="modo_envio_guias"
-              defaultValue={cliente?.modo_envio_guias ?? 'individual_automatico'}
+              defaultValue={
+                cliente?.modo_envio_guias ?? "individual_automatico"
+              }
               className="flex h-9 w-full rounded-md border bg-background px-3 py-1 text-sm"
             >
               <option value="individual_automatico">
@@ -199,7 +207,7 @@ export function ClienteForm({ cliente }: Props) {
             Cancelar
           </Button>
           <Button type="submit" disabled={pending}>
-            {pending ? 'Salvando...' : 'Salvar'}
+            {pending ? "Salvando..." : "Salvar"}
           </Button>
         </div>
       </div>
