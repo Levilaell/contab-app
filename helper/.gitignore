@@ -1,0 +1,5 @@
+node_modules
+wa-profile
+debug
+*.log
+.env

@@ -2,6 +2,7 @@ import { createServiceClient } from '@/lib/supabase/service';
 import { listFiles, downloadFile, type ScanFile } from '@/lib/onedrive/scan';
 import { cleanCNPJ } from '@/lib/format';
 import { getConfig } from '@/lib/config';
+import { gerarLinkPublicoGuia } from '@/lib/guias/storage';
 import { randomBytes } from 'node:crypto';
 import type { ExternalClient } from '@/lib/types';
 
@@ -159,6 +160,13 @@ export async function runColeta(): Promise<{
 
       if (!guia) continue;
       totalGuias++;
+
+      // Gera signed URL pública (30d) se o PDF foi de fato subido. Usado pra envio em grupo
+      // e (eventualmente) por envio individual via API quando link público for útil.
+      if (buffer.byteLength > 0) {
+        await gerarLinkPublicoGuia((guia as { id: string }).id, storagePath);
+      }
+
       if (!cliente) {
         totalOrfas++;
       } else {

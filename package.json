@@ -10,7 +10,10 @@
     "typecheck": "tsc --noEmit",
     "seed": "tsx scripts/seed.ts",
     "encrypt": "tsx scripts/encrypt-credentials.ts",
-    "check-db": "tsx scripts/check-db.ts"
+    "check-db": "tsx scripts/check-db.ts",
+    "helper:install": "pnpm --filter contab-helper install && pnpm --filter contab-helper run install-browser",
+    "helper:start": "pnpm --filter contab-helper run start",
+    "helper:typecheck": "pnpm --filter contab-helper run typecheck"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.98.0",

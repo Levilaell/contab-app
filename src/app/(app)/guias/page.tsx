@@ -21,13 +21,16 @@ export default async function GuiasPage() {
     await Promise.all([
       sb.from('guias').select('*').gte('competencia', monthStart.toISOString().slice(0, 10)),
       sb.from('guia_envios').select('*').gte('created_at', monthStart.toISOString()),
-      sb.from('external_clients').select('id, razao_social, cnpj'),
+      sb.from('external_clients').select('id, razao_social, cnpj, grupo_whatsapp_nome'),
       sb.from('external_client_contacts').select('id, nome, whatsapp, external_client_id'),
     ]);
 
   const guiaList = (guias ?? []) as Guia[];
   const envioList = (envios ?? []) as GuiaEnvio[];
-  const clienteList = (clientes ?? []) as Pick<ExternalClient, 'id' | 'razao_social' | 'cnpj'>[];
+  const clienteList = (clientes ?? []) as Pick<
+    ExternalClient,
+    'id' | 'razao_social' | 'cnpj' | 'grupo_whatsapp_nome'
+  >[];
   const contatoList = (contatos ?? []) as Pick<
     ExternalClientContact,
     'id' | 'nome' | 'whatsapp' | 'external_client_id'

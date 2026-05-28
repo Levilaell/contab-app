@@ -163,7 +163,7 @@ export function ClienteForm({ cliente }: Props) {
           <CardTitle>GuiaFlow</CardTitle>
           <CardDescription>Como enviar guias</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="modo_envio_guias">Modo</Label>
             <select
@@ -179,6 +179,19 @@ export function ClienteForm({ cliente }: Props) {
               </option>
               <option value="desativado">Desativado</option>
             </select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="grupo_whatsapp_nome">Grupo WhatsApp (envio assistido)</Label>
+            <Input
+              id="grupo_whatsapp_nome"
+              name="grupo_whatsapp_nome"
+              defaultValue={cliente?.grupo_whatsapp_nome ?? ""}
+              placeholder="Nome exato do grupo no WhatsApp"
+            />
+            <p className="text-xs text-muted-foreground">
+              Quando preenchido, aparece o botão &quot;Preparar envio em grupo&quot; na fila do
+              GuiaFlow. Requer helper local rodando.
+            </p>
           </div>
         </CardContent>
       </Card>

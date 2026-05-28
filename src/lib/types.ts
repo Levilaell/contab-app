@@ -8,6 +8,7 @@ export type ExternalClient = {
   dia_solicitacao: number;
   modo_envio_guias: 'individual_automatico' | 'desativado';
   dominio_codigo_empresa: string | null;
+  grupo_whatsapp_nome: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -84,6 +85,8 @@ export type Guia = {
   storage_path: string;
   filename_original: string | null;
   cnpj_identificado: string | null;
+  link_publico_url: string | null;
+  link_publico_expira_at: string | null;
   created_at: string;
 };
 

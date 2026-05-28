@@ -16,6 +16,7 @@ const clienteSchema = z.object({
   dia_solicitacao: z.coerce.number().min(1).max(28).default(5),
   modo_envio_guias: z.enum(['individual_automatico', 'desativado']).default('individual_automatico'),
   dominio_codigo_empresa: z.string().nullable().optional(),
+  grupo_whatsapp_nome: z.string().nullable().optional(),
 });
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
@@ -42,6 +43,7 @@ export async function createCliente(formData: FormData): Promise<ActionResult> {
     ...data,
     nome_fantasia: data.nome_fantasia || null,
     dominio_codigo_empresa: data.dominio_codigo_empresa || null,
+    grupo_whatsapp_nome: data.grupo_whatsapp_nome?.trim() || null,
   });
 
   if (error) {
@@ -76,6 +78,7 @@ export async function updateCliente(id: string, formData: FormData): Promise<Act
       ...data,
       nome_fantasia: data.nome_fantasia || null,
       dominio_codigo_empresa: data.dominio_codigo_empresa || null,
+      grupo_whatsapp_nome: data.grupo_whatsapp_nome?.trim() || null,
       updated_at: new Date().toISOString(),
     })
     .eq('id', id);
